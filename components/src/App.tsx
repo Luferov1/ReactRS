@@ -1,7 +1,9 @@
-function App() {
- return (
-   <div>Hello world</div>
- );
-}
+const App = () => {
+  return (
+    <div className="oleg" id="ivan" style={{ backgroundColor: 'black' }}>
+      Hello world
+    </div>
+  );
+};
 
-export default App
+export default App;
