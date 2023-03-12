@@ -1,6 +1,11 @@
 const App = () => {
   return (
-    <div className="oleg" id="ivan" style={{ backgroundColor: 'black' }}>
+    <div
+        className="oleg"
+        id="ivan"
+        style={{ backgroundColor: "black" }}
+        key="oleg"
+    >
       Hello world
     </div>
   );
