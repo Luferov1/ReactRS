@@ -1,3 +1,24 @@
+@font-face {
+  font-family: "Poppins-Light";
+  src: local("Poppins-Light"),
+  url("./fonts/Poppins-Light.ttf") format("truetype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Poppins-Medium";
+  src: local("Poppins-Medium"),
+  url("./fonts/Poppins-Medium.ttf") format("truetype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Poppins-Bold";
+  src: local("Poppins-Bold"),
+  url("./fonts/Poppins-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
@@ -353,6 +374,7 @@ template {
 }
 * {
   margin: 0;
+  font-family: Poppins-Medium, sans serif;
 }
 html, body {
   height: 100%;
