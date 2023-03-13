@@ -1,0 +1,24 @@
+@use "src/sass" as basics;
+
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.header,
+.subHeader {
+  color: basics.$purple;
+}
+
+.subHeader {
+  margin-bottom: 30px;
+}
+
+.playersContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 30px;
+  width: 100%;
+  padding: 0 10px;
+}
