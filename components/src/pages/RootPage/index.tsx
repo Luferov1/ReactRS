@@ -10,6 +10,9 @@ class RootPage extends Component {
     return (
       <div className={styles.wrapper}>
         <Header />
+        <div className={styles.background}>
+          <div className={styles.players} />
+        </div>
         <Outlet />
         <Footer />
       </div>
