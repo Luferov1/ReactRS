@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Outlet } from 'react-router-dom';
 import styles from './style.module.scss';
 import Header from './Header';
+import Footer from './Footer';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class RootPage extends Component {
@@ -10,6 +11,7 @@ class RootPage extends Component {
       <div className={styles.wrapper}>
         <Header />
         <Outlet />
+        <Footer />
       </div>
     );
   }
