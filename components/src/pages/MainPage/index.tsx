@@ -50,7 +50,7 @@ class MainPage extends Component<Props, State> {
           This is the best FPL assets for the upcoming GWs
         </h2>
         <SearchBar value={value} onChange={this.handleChange} />
-        <div className={styles.playersContainer}>
+        <div className={styles.playersContainer} role="article">
           {players
             .filter(({ id }) => {
               return filteredPlayers.includes(id);

@@ -12,6 +12,7 @@ const SearchBar = ({ onChange, value }: Props) => (
     type="text"
     value={value}
     onChange={onChange}
+    placeholder="Search for players"
   />
 );
 
