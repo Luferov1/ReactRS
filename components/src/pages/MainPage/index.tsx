@@ -55,7 +55,6 @@ class MainPage extends Component<Props, State> {
             .filter(({ id }) => {
               return filteredPlayers.includes(id);
             })
-            .sort(() => Math.random() - 0.5)
             .map(({ name, price, form, img, team, position, selected, id }) => (
               <PlayerCard
                 name={name}
