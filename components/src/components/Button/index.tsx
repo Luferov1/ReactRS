@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './style.module.scss';
 
 interface Props {
@@ -7,23 +7,20 @@ interface Props {
   text: string;
 }
 
-// eslint-disable-next-line react/prefer-stateless-function
-class Button extends Component<Props> {
-  render() {
-    const { width, height, text } = this.props;
-    return (
-      <button
-        style={{
-          width: `${width}%`,
-          height,
-        }}
-        className={styles.button}
-        type="button"
-      >
-        {text}
-      </button>
-    );
-  }
-}
+const Button = (props: Props) => {
+  const { width, height, text } = props;
+  return (
+    <button
+      style={{
+        width: `${width}%`,
+        height,
+      }}
+      className={styles.button}
+      type="button"
+    >
+      {text}
+    </button>
+  );
+};
 
 export default Button;
