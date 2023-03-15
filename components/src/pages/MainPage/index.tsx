@@ -3,6 +3,7 @@ import SearchBar from '../../components/SearchBar';
 import styles from './style.module.scss';
 import PlayerCard from '../../components/PlayerCard';
 import players from '../../constants/playersInfo';
+import { fillArray, filterPlayersArr } from '../../functions';
 
 interface Props {
   text?: string;
@@ -10,6 +11,7 @@ interface Props {
 
 interface State {
   value: string;
+  filteredPlayers: number[];
 }
 class MainPage extends Component<Props, State> {
   constructor(props: Props) {
@@ -17,9 +19,12 @@ class MainPage extends Component<Props, State> {
     this.handleChange = this.handleChange.bind(this);
     const value = localStorage.getItem('value');
     if (value) {
-      this.state = { value };
+      this.state = { value, filteredPlayers: filterPlayersArr(value) };
     } else {
-      this.state = { value: '' };
+      this.state = {
+        value: '',
+        filteredPlayers: fillArray(1, players.length),
+      };
     }
   }
 
@@ -29,11 +34,15 @@ class MainPage extends Component<Props, State> {
   }
 
   handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ value: event.target.value });
+    const targetValue = event.target.value;
+    this.setState({
+      value: targetValue,
+      filteredPlayers: filterPlayersArr(targetValue),
+    });
   }
 
   render() {
-    const { value } = this.state;
+    const { value, filteredPlayers } = this.state;
     return (
       <main className={styles.main}>
         <h1 className={styles.header}>Best FPL assets</h1>
@@ -43,8 +52,11 @@ class MainPage extends Component<Props, State> {
         <SearchBar value={value} onChange={this.handleChange} />
         <div className={styles.playersContainer}>
           {players
+            .filter(({ id }) => {
+              return filteredPlayers.includes(id);
+            })
             .sort(() => Math.random() - 0.5)
-            .map(({ name, price, form, img, team, position, selected }) => (
+            .map(({ name, price, form, img, team, position, selected, id }) => (
               <PlayerCard
                 name={name}
                 team={team}
@@ -53,6 +65,8 @@ class MainPage extends Component<Props, State> {
                 selected={selected}
                 position={position}
                 img={img}
+                id={id}
+                key={`Player${id}`}
               />
             ))}
         </div>
