@@ -1,0 +1,16 @@
+@use "src/sass"as basics;
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .img {
+    height: 100%;
+  }
+
+  .text {
+    font-size: 20px;
+    color: basics.$white;
+  }
+}

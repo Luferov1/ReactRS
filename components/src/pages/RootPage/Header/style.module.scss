@@ -1,0 +1,10 @@
+@use "src/sass/index" as basics;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: basics.$purple;
+  width: 100%;
+  height: 70px;
+}
