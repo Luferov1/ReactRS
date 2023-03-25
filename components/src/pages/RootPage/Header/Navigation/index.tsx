@@ -21,6 +21,14 @@ const Navigation = () => (
     >
       About us
     </NavLink>
+    <NavLink
+      to={Path.Form}
+      className={({ isActive }) =>
+        isActive ? styles.link_active : styles.link
+      }
+    >
+      Create new card
+    </NavLink>
   </nav>
 );
 
