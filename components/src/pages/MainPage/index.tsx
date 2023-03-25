@@ -13,6 +13,7 @@ interface State {
   value: string;
   filteredPlayers: number[];
 }
+
 class MainPage extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -55,19 +56,30 @@ class MainPage extends Component<Props, State> {
             .filter(({ id }) => {
               return filteredPlayers.includes(id);
             })
-            .map(({ name, price, form, img, team, position, selected, id }) => (
-              <PlayerCard
-                name={name}
-                team={team}
-                form={form}
-                price={price}
-                selected={selected}
-                position={position}
-                img={img}
-                id={id}
-                key={`Player${id}`}
-              />
-            ))}
+            .map(
+              ({
+                name,
+                price,
+                birthDate,
+                img,
+                team,
+                position,
+                selected,
+                id,
+              }) => (
+                <PlayerCard
+                  name={name}
+                  team={team}
+                  birthDate={birthDate}
+                  price={price}
+                  selected={selected}
+                  position={position}
+                  img={img}
+                  id={id}
+                  key={`Player${id}`}
+                />
+              )
+            )}
         </div>
       </main>
     );
