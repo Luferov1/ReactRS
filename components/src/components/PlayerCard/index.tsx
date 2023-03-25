@@ -7,7 +7,7 @@ const PlayerCard = ({
   team,
   price,
   selected,
-  form,
+  birthDate,
   name,
   position,
   img,
@@ -21,7 +21,7 @@ const PlayerCard = ({
       <HeaderNText header="Team" text={team} />
       <HeaderNText header="Position" text={position} />
       <HeaderNText header="Price" text={`${price}m £`} />
-      <HeaderNText header="Form" text={form} />
+      <HeaderNText header="Birth date" text={birthDate} />
       <HeaderNText header="Selected" text={`${selected}%`} />
     </div>
   </div>
