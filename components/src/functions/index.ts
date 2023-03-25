@@ -10,17 +10,19 @@ export const fillArray = (start: number, end: number) => {
 
 export const filterPlayersArr = (str: string) => {
   const filteredPlayers: number[] = [];
-  players.forEach(({ position, selected, form, team, price, name, id }) => {
-    if (
-      position.toLowerCase().includes(str.toLowerCase()) ||
-      String(selected).includes(str) ||
-      String(form).includes(str) ||
-      team.toLowerCase().includes(str.toLowerCase()) ||
-      String(price).includes(str) ||
-      name.toLowerCase().includes(str.toLowerCase())
-    ) {
-      filteredPlayers.push(id);
+  players.forEach(
+    ({ position, selected, birthDate, team, price, name, id }) => {
+      if (
+        position.toLowerCase().includes(str.toLowerCase()) ||
+        String(selected).includes(str) ||
+        birthDate.includes(str) ||
+        team.toLowerCase().includes(str.toLowerCase()) ||
+        String(price).includes(str) ||
+        name.toLowerCase().includes(str.toLowerCase())
+      ) {
+        filteredPlayers.push(id);
+      }
     }
-  });
+  );
   return filteredPlayers;
 };
