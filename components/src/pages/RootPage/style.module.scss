@@ -1,0 +1,25 @@
+.wrapper {
+  max-width: 1600px;
+  min-height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.background {
+  background-image: url("src/assets/png/pattern1.png"), url("src/assets/png/pattern1.png"), linear-gradient(to right, rgb(2, 239, 255), rgb(98, 123, 255));
+  background-position: 50% -460px, right -73px bottom -24px, 0px center;
+  background-size: 618px 873px, 618px 873px, auto;
+  background-repeat: no-repeat;
+  height: 150px;
+  position: relative;
+
+  .players {
+    position: absolute;
+    right: 0;
+    background-image: url("src/assets/png/players.png");
+    background-repeat: no-repeat;
+    width: 350px;
+    height: 150px;
+  }
+}
