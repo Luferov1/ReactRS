@@ -1,4 +1,5 @@
 import { Ref } from 'react';
+import { ChangeHandler } from 'react-hook-form';
 import { InputTypes, Positions } from '../enums';
 
 export interface IFormProps {
@@ -17,6 +18,9 @@ export interface IFormState {
 export interface IValidInput {
   text: string;
   type: InputTypes;
+  name: string;
+  onChange: ChangeHandler;
+  onBlur: ChangeHandler;
 }
 export interface IInputData extends IValidInput {
   ref: Ref<HTMLInputElement> | undefined;
@@ -34,6 +38,9 @@ export interface IRangeInput {
   min: number;
   max: number;
   step: number;
+  name: string;
+  onChange: ChangeHandler;
+  onBlur: ChangeHandler;
 }
 
 export interface IRangeData extends IRangeInput {
