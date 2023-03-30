@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  gap: 10px;
+}
+
+.header,
+.text {
+  height: 100%;
+  font-weight: 300;
+}
+
+.text {
+  font-weight: 700;
+}

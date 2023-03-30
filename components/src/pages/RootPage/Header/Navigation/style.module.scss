@@ -1,0 +1,24 @@
+@use "src/sass/index" as basics;
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+
+  .link,
+  .link_active {
+    color: basics.$white;
+    text-decoration: none;
+    width: 25%;
+    text-align: center;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .link_active {
+    pointer-events: none;
+    color: basics.$green;
+  }
+}
