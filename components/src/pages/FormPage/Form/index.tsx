@@ -6,14 +6,14 @@ import ValidInput from './ValidInput';
 import PositionsRadio from './PositionsRadio';
 import RangeInput from './RangeInput';
 import SubmittedMessage from './SubmittedMessage';
-// import { IPlayer } from '../../../constants/playersInfo';
+import players, { IPlayer } from '../../../constants/playersInfo';
 
 interface IFormInputs {
   nameInput: string;
   dateInput: string;
-  fileInput: string;
+  fileInput: FileList;
   selectInput: string;
-  positionInput: number;
+  positionInput: Positions | null;
   ownershipInput: number;
   priceInput: number;
   checkbox: boolean;
@@ -25,7 +25,7 @@ const Form = () => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
+    reset,
   } = useForm<IFormInputs>();
   const showMessage = () => {
     setIsSubmitted(true);
@@ -34,15 +34,21 @@ const Form = () => {
     }, 3000);
   };
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    console.log(data);
-    // const newPlayer: IPlayer = {
-    //   name: data.nameInput,
-    //   birthDate: data.dateInput.split('-').reverse().join('.'),
-    //   selected: data.ownershipInput,
-    //   img: URL.createObjectURL(data.fileInput);
-    // };
-    // console.log(newPlayer)
-    setValue('nameInput', '');
+    const keys = Object.keys(TeamNames);
+    const values = Object.values(TeamNames);
+    const index = keys.indexOf(data.selectInput);
+    const newPlayer: IPlayer = {
+      name: data.nameInput,
+      birthDate: data.dateInput.split('-').reverse().join('.'),
+      selected: data.ownershipInput,
+      img: URL.createObjectURL(data.fileInput[0]),
+      id: players.length + 1,
+      team: values[index],
+      position: data.positionInput as Positions,
+      price: data.priceInput,
+    };
+    players.push(newPlayer);
+    reset();
     showMessage();
   };
   const teamNames = Object.keys(TeamNames);
@@ -76,10 +82,10 @@ const Form = () => {
         onBlur={nameInput.onBlur}
       />
       {errors.nameInput && errors.nameInput.type === 'required' && (
-        <span>This is required</span>
+        <span className={styles.errorMessage}>Name is required</span>
       )}
       {errors.nameInput && errors.nameInput.type === 'minLength' && (
-        <span>Min length exceeded</span>
+        <span className={styles.errorMessage}>At least 3 symbols</span>
       )}
       <ValidInput
         text="Date of birth"
@@ -89,6 +95,9 @@ const Form = () => {
         onBlur={dateInput.onBlur}
         ref={dateInput.ref}
       />
+      {errors.dateInput && (
+        <span className={styles.errorMessage}>Date is required</span>
+      )}
       <ValidInput
         text="Upload player's image"
         type={InputTypes.File}
@@ -97,6 +106,9 @@ const Form = () => {
         onBlur={fileInput.onBlur}
         ref={fileInput.ref}
       />
+      {errors.fileInput && (
+        <span className={styles.errorMessage}>Uploading image is required</span>
+      )}
       <select
         ref={selectInput.ref}
         name={selectInput.name}
@@ -114,6 +126,9 @@ const Form = () => {
           </option>
         ))}
       </select>
+      {errors.selectInput && (
+        <span className={styles.errorMessage}>Selecting team is required</span>
+      )}
       <span>Position</span>
       <div className={styles.positions}>
         <PositionsRadio
@@ -144,42 +159,47 @@ const Form = () => {
           onBlur={positionInput.onBlur}
           name={positionInput.name}
         />
-        <RangeInput
-          id="price"
-          min={4}
-          max={13}
-          step={0.5}
-          ref={priceInput.ref}
-          name={priceInput.name}
-          onChange={priceInput.onChange}
-          onBlur={priceInput.onBlur}
-        />
-        <RangeInput
-          id="ownership"
-          min={0}
-          max={100}
-          step={0.5}
-          ref={ownershipInput.ref}
-          onChange={ownershipInput.onChange}
-          onBlur={ownershipInput.onBlur}
-          name={ownershipInput.name}
-        />
-        <label htmlFor="checkbox" className={styles.checkBox}>
-          This player is real
-          <input
-            id="checkbox"
-            type={InputTypes.Checkbox}
-            ref={checkbox.ref}
-            onChange={checkbox.onChange}
-            onBlur={checkbox.onBlur}
-            name={checkbox.name}
-          />
-        </label>
-        <button type="submit" className={styles.submitButton}>
-          Submit
-        </button>
-        {isSubmitted ? <SubmittedMessage /> : null}
       </div>
+      {errors.positionInput && (
+        <span className={styles.errorMessage}>
+          Selecting position is required
+        </span>
+      )}
+      <RangeInput
+        id="price"
+        min={4}
+        max={13}
+        step={0.5}
+        ref={priceInput.ref}
+        name={priceInput.name}
+        onChange={priceInput.onChange}
+        onBlur={priceInput.onBlur}
+      />
+      <RangeInput
+        id="ownership"
+        min={0}
+        max={100}
+        step={0.5}
+        ref={ownershipInput.ref}
+        onChange={ownershipInput.onChange}
+        onBlur={ownershipInput.onBlur}
+        name={ownershipInput.name}
+      />
+      <label htmlFor="checkbox" className={styles.checkBox}>
+        This player is real
+        <input
+          id="checkbox"
+          type={InputTypes.Checkbox}
+          ref={checkbox.ref}
+          onChange={checkbox.onChange}
+          onBlur={checkbox.onBlur}
+          name={checkbox.name}
+        />
+      </label>
+      <button type="submit" className={styles.submitButton}>
+        Submit
+      </button>
+      {isSubmitted ? <SubmittedMessage /> : null}
     </form>
   );
 };
