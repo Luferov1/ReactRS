@@ -4,7 +4,7 @@ import styles from './style.module.scss';
 import { InputTypes } from '../../../../enums';
 
 const ValidInput = forwardRef<HTMLInputElement, IValidInput>(
-  ({ text, type }, ref) => (
+  ({ text, type, name, onBlur, onChange }, ref) => (
     <label className={styles.label} htmlFor={text}>
       {text}
       <input
@@ -12,6 +12,9 @@ const ValidInput = forwardRef<HTMLInputElement, IValidInput>(
         id={text}
         type={type}
         ref={ref}
+        name={name}
+        onBlur={onBlur}
+        onChange={onChange}
         accept={type === InputTypes.File ? 'image/*' : undefined}
       />
     </label>
