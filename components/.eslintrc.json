@@ -27,7 +27,6 @@
     ],
     "rules": {
         "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
         "comma-dangle": ["error", "only-multiline"],
         "react/prop-types": "off",
         "react/display-name": "off",
@@ -52,6 +51,7 @@
         ],
         "no-param-reassign": ["error", { "props": false }],
         "no-underscore-dangle": 0,
-        "max-len": ["error", { "code": 80, "ignoreUrls": true, "ignoreStrings": true, "ignoreComments": true }]
+        "max-len": ["error", { "code": 80, "ignoreUrls": true, "ignoreStrings": true, "ignoreComments": true }],
+        "react-hooks/exhaustive-deps": 0
     }
 }
