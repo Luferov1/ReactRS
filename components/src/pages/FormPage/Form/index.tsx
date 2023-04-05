@@ -52,7 +52,6 @@ const Form = ({ setPlayers, players }: Props) => {
       position: data.positionInput as Positions,
       price: data.priceInput,
     };
-    // players.push(newPlayer);
     setPlayers([...players, newPlayer]);
     reset();
     showMessage();
