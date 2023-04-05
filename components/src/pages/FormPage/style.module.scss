@@ -10,3 +10,9 @@
 .header {
   font-size: 26px;
 }
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}

@@ -6,7 +6,7 @@ import ValidInput from './ValidInput';
 import PositionsRadio from './PositionsRadio';
 import RangeInput from './RangeInput';
 import SubmittedMessage from './SubmittedMessage';
-import players, { IPlayer } from '../../../constants/playersInfo';
+import { IPlayer } from '../../../constants/playersInfo';
 
 interface IFormInputs {
   nameInput: string;
@@ -19,7 +19,12 @@ interface IFormInputs {
   checkbox: boolean;
 }
 
-const Form = () => {
+interface Props {
+  players: IPlayer[];
+  setPlayers: React.Dispatch<React.SetStateAction<IPlayer[]>>;
+}
+
+const Form = ({ setPlayers, players }: Props) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const {
     register,
@@ -47,7 +52,8 @@ const Form = () => {
       position: data.positionInput as Positions,
       price: data.priceInput,
     };
-    players.push(newPlayer);
+    // players.push(newPlayer);
+    setPlayers([...players, newPlayer]);
     reset();
     showMessage();
   };
