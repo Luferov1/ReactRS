@@ -1,18 +1,8 @@
-import { Ref } from 'react';
 import { ChangeHandler } from 'react-hook-form';
-import { InputTypes, Positions } from '../enums';
+import { InputTypes, TeamNames } from '../enums';
 
 export interface IFormProps {
   text?: string;
-}
-
-export interface IFormState {
-  nameError: boolean;
-  teamError: boolean;
-  dateError: boolean;
-  positionError: boolean;
-  imageError: boolean;
-  isSubmitted: boolean;
 }
 
 export interface IValidInput {
@@ -21,16 +11,6 @@ export interface IValidInput {
   name: string;
   onChange: ChangeHandler;
   onBlur: ChangeHandler;
-}
-export interface IInputData extends IValidInput {
-  ref: Ref<HTMLInputElement> | undefined;
-  errorText: string;
-  state: boolean;
-}
-
-export interface IPositionData {
-  text: Positions;
-  ref: Ref<HTMLInputElement> | undefined;
 }
 
 export interface IRangeInput {
@@ -43,6 +23,44 @@ export interface IRangeInput {
   onBlur: ChangeHandler;
 }
 
-export interface IRangeData extends IRangeInput {
-  ref: Ref<HTMLInputElement> | undefined;
+export interface IPlayer {
+  player: {
+    id: number;
+    name: string;
+  };
+  numberOfGoals: number;
+}
+
+export interface Scorers {
+  player: {
+    name: string;
+    id: number;
+  };
+  team: {
+    name: TeamNames;
+  };
+  numberOfGoals: number;
+}
+
+export interface ScorersResponse {
+  scorers: Scorers[];
+}
+
+export interface PlayerInfo {
+  id: number;
+  dateOfBirth: string;
+  nationality: string;
+  position: string;
+  name: string;
+}
+
+export interface FullPlayerInfo extends PlayerInfo {
+  team: TeamNames;
+  numberOfGoals: number;
+}
+
+export interface ModalInitialState {
+  id: number;
+  team: TeamNames;
+  numberOfGoals: number;
 }
