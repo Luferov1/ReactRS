@@ -1,28 +1,42 @@
-import players from '../constants/playersInfo';
+import axios from 'axios';
+import React from 'react';
+import { PlayerInfo, Scorers, ScorersResponse } from '../interfaces';
 
-export const fillArray = (start: number, end: number) => {
-  const arr = [];
-  for (let i = start; i <= end; i += 1) {
-    arr.push(i);
-  }
-  return arr;
+export const filterPlayersArr = (str: string, players: Scorers[]) => {
+  return players.filter(({ player }) =>
+    player.name.toLowerCase().includes(str.toLowerCase())
+  );
 };
 
-export const filterPlayersArr = (str: string) => {
-  const filteredPlayers: number[] = [];
-  players.forEach(
-    ({ position, selected, birthDate, team, price, name, id }) => {
-      if (
-        position.toLowerCase().includes(str.toLowerCase()) ||
-        String(selected).includes(str) ||
-        birthDate.includes(str) ||
-        team.toLowerCase().includes(str.toLowerCase()) ||
-        String(price).includes(str) ||
-        name.toLowerCase().includes(str.toLowerCase())
-      ) {
-        filteredPlayers.push(id);
-      }
-    }
-  );
-  return filteredPlayers;
+export const fetchAllPlayers = async (
+  setServerError: React.Dispatch<React.SetStateAction<boolean>>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  limit = 100
+): Promise<Scorers[]> => {
+  setLoading(true);
+  try {
+    const response = await axios.get<ScorersResponse>(
+      `/api/competitions/PL/scorers?limit=${limit}`
+    );
+    setLoading(false);
+    return response.data.scorers;
+  } catch (error) {
+    setServerError(true);
+    setLoading(false);
+    return [];
+  }
+};
+
+export const fetchPlayerById = async (
+  id: number,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+): Promise<PlayerInfo | null> => {
+  try {
+    const response = await axios.get(`/api/players/${id}`);
+    setLoading(false);
+    return response.data;
+  } catch (error) {
+    setLoading(false);
+    return null;
+  }
 };
