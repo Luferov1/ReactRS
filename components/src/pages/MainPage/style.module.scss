@@ -1,8 +1,11 @@
 @use "src/sass" as basics;
 
 .main {
+  position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  min-height: 1000px;
 }
 
 .header,
@@ -16,10 +19,15 @@
 
 .playersContainer {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 50px;
+  flex-direction: column;
+  gap: 20px;
   margin-top: 30px;
-  width: 100%;
+  margin-bottom: 30px;
+  width: 80%;
   padding: 0 10px;
+}
+
+.serverError {
+  color: basics.$purple;
+  font-size: 30px;
 }
