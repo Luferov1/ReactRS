@@ -8,7 +8,5 @@ import './fonts/Poppins-Medium.ttf';
 import './fonts/Poppins-Bold.ttf';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <RouterProvider router={router} />
 );
