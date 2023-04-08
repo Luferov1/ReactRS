@@ -21,4 +21,17 @@ export default defineConfig({
       reporter: 'text',
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.football-data.org/v2',
+        changeOrigin: true,
+        secure: false,
+        headers: {
+          'X-Auth-Token': '2960231e1d704e1484c2676c1ad21b44',
+        },
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 });
