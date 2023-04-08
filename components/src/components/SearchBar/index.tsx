@@ -4,17 +4,12 @@ import styles from './style.module.scss';
 interface Props {
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
 }
 
-const SearchBar = ({ onChange, value }: Props) => {
+const SearchBar = ({ onChange, value, onSubmit }: Props) => {
   return (
-    <form
-      className={styles.searchBar}
-      onSubmit={(event) => {
-        event.preventDefault();
-        console.log(value);
-      }}
-    >
+    <form className={styles.searchBar} onSubmit={onSubmit}>
       <input
         type="text"
         value={value}
