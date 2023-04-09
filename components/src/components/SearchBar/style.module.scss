@@ -1,0 +1,27 @@
+@use "src/sass" as basics;
+
+.searchBar {
+  width: 40%;
+  height: 40px;
+  padding-left: 40px;
+  background-image: url("src/assets/svg/searcher.svg");
+  background-size: 40px;
+  background-repeat: no-repeat;
+  align-self: center;
+  font-size: 25px;
+  display: flex;
+  gap: 10px;
+}
+
+.submitButton {
+  cursor: pointer;
+  transition: all 1s ease;
+  border: none;
+  color: basics.$white;
+  background-color: basics.$red-purple;
+  border-radius: 5px;
+
+  &:hover {
+    transform: scaleX(1.05);
+  }
+}
