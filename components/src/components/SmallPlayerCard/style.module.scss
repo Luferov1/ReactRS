@@ -48,3 +48,10 @@
 .numberOfGoals {
     width: 10%;
 }
+
+.hidden {
+  cursor: default;
+  background-image: linear-gradient(to right, rgba(2, 239, 255, 0.1), rgba(98, 123, 255, 0.1));
+  border: none;
+  pointer-events: none;
+}

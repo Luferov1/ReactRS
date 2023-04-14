@@ -3,6 +3,7 @@ import styles from './style.module.scss';
 import { Scorers } from '../../interfaces';
 import premierLeagueTeamLogos from '../../constants/TeamsLogos';
 import { TeamNames } from '../../enums';
+import { useAppSelector } from '../../hooks';
 
 interface Props extends Scorers {
   position: number;
@@ -19,13 +20,18 @@ const SmallPlayerCard = ({
   const teamKeys = Object.keys(TeamNames);
   const teamValues = Object.values(TeamNames);
   const teamName = teamKeys[teamValues.indexOf(team.name)];
+  const { isModalOpened } = useAppSelector((state) => state.mainPageReducer);
   return (
-    <button
-      className={styles.container}
+    <div
+      className={
+        isModalOpened
+          ? [styles.container, styles.hidden].join(' ')
+          : styles.container
+      }
       onClick={() => {
         openModal(id, team.name, numberOfGoals);
       }}
-      type="button"
+      aria-hidden="true"
     >
       <div className={styles.position}>{position}</div>
       <div className={styles.name}>{name}</div>
@@ -38,7 +44,7 @@ const SmallPlayerCard = ({
         <span className={styles.teamName}>{teamName}</span>
       </div>
       <div className={styles.numberOfGoals}>{numberOfGoals}</div>
-    </button>
+    </div>
   );
 };
 
