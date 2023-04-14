@@ -1,30 +1,19 @@
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { InputTypes, Positions, TeamNames } from '../../../enums';
+import { InputNames, InputTypes, Positions, TeamNames } from '../../../enums';
 import styles from './style.module.scss';
 import ValidInput from './ValidInput';
 import PositionsRadio from './PositionsRadio';
 import RangeInput from './RangeInput';
 import SubmittedMessage from './SubmittedMessage';
-import { IPlayer } from '../../../constants/playersInfo';
+import { IFormInputs } from '../../../interfaces';
+import { createNewPlayerCard } from '../../../functions';
+import { useAppDispatch } from '../../../hooks';
+import { formPageSlice } from '../../../store/reducers/FormPageSlice';
 
-interface IFormInputs {
-  nameInput: string;
-  dateInput: string;
-  fileInput: FileList;
-  selectInput: string;
-  positionInput: Positions | null;
-  ownershipInput: number;
-  priceInput: number;
-  checkbox: boolean;
-}
-
-interface Props {
-  players: IPlayer[];
-  setPlayers: React.Dispatch<React.SetStateAction<IPlayer[]>>;
-}
-
-const Form = ({ setPlayers, players }: Props) => {
+const Form = () => {
+  const dispatch = useAppDispatch();
+  const { addNewCard } = formPageSlice.actions;
   const [isSubmitted, setIsSubmitted] = useState(false);
   const {
     register,
@@ -39,43 +28,32 @@ const Form = ({ setPlayers, players }: Props) => {
     }, 3000);
   };
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    const keys = Object.keys(TeamNames);
-    const values = Object.values(TeamNames);
-    const index = keys.indexOf(data.selectInput);
-    const newPlayer: IPlayer = {
-      name: data.nameInput,
-      birthDate: data.dateInput.split('-').reverse().join('.'),
-      selected: data.ownershipInput,
-      img: URL.createObjectURL(data.fileInput[0]),
-      id: players.length + 1,
-      team: values[index],
-      position: data.positionInput as Positions,
-      price: data.priceInput,
-    };
-    setPlayers([...players, newPlayer]);
+    const newPlayer = createNewPlayerCard(data);
+    dispatch(addNewCard(newPlayer));
     reset();
     showMessage();
   };
   const teamNames = Object.keys(TeamNames);
-  const nameInput = register('nameInput', {
+  const nameInput = register(InputNames.NameInput, {
     required: true,
     minLength: 3,
   });
-  const dateInput = register('dateInput', {
+  const dateInput = register(InputNames.DateInput, {
     required: true,
   });
-  const fileInput = register('fileInput', {
+  const fileInput = register(InputNames.FileInput, {
     required: true,
   });
-  const selectInput = register('selectInput', {
+  const selectInput = register(InputNames.SelectInput, {
     required: true,
   });
-  const positionInput = register('positionInput', {
+  const positionInput = register(InputNames.PositionInput, {
     required: true,
   });
-  const ownershipInput = register('ownershipInput');
-  const priceInput = register('priceInput');
-  const checkbox = register('checkbox');
+  const ownershipInput = register(InputNames.OwnershipInput);
+  const priceInput = register(InputNames.PriceInput);
+  const checkbox = register(InputNames.Checkbox);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <ValidInput
