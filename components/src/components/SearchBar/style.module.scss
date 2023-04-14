@@ -1,0 +1,21 @@
+@use "src/sass" as basics;
+
+.submitButton {
+  cursor: pointer;
+  transition: all 1s ease;
+  border: none;
+  color: basics.$white;
+  background-color: basics.$red-purple;
+  border-radius: 5px;
+
+  &:hover {
+    transform: scaleX(1.05);
+  }
+}
+
+.hidden {
+  cursor: default;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  pointer-events: none;
+}

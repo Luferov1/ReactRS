@@ -1,0 +1,57 @@
+@use "src/sass" as basics;
+
+.container {
+  width: 60%;
+  height: 40px;
+  font-size: 20px;
+  background-image: url("src/assets/png/pattern1.png"), url("src/assets/png/pattern1.png"), linear-gradient(to right, rgb(2, 239, 255), rgb(98, 123, 255));
+  color: basics.$purple;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  cursor: pointer;
+  margin-left: 15px;
+  border: none;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.position {
+  width: 5%;
+}
+
+.name {
+  width: 60%;
+  height: 100%;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .teamName {
+    width: 100px;
+  }
+
+  .teamImg {
+    height: 40px;
+    width: 40px;
+  }
+}
+
+.numberOfGoals {
+    width: 10%;
+}
+
+.hidden {
+  cursor: default;
+  background-image: linear-gradient(to right, rgba(2, 239, 255, 0.1), rgba(98, 123, 255, 0.1));
+  border: none;
+  pointer-events: none;
+}

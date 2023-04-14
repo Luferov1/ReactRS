@@ -1,0 +1,12 @@
+@use 'src/sass' as basics;
+
+.label {
+ display: flex;
+ align-items: center;
+ gap: 2%;
+ flex-wrap: wrap;
+}
+
+.input {
+
+}

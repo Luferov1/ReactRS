@@ -1,0 +1,53 @@
+@use 'src/sass' as basics;
+
+.form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 40%;
+  height: 550px;
+  border: 2px solid basics.$blue;
+  padding: 5px;
+  border-radius: 10px;
+  background-image: linear-gradient(150deg, basics.$blue, 5%, basics.$white);
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.select {
+  width: 40%;
+}
+
+.option {
+  color: basics.$purple;
+}
+
+.positions {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.checkBox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.submitButton {
+  width: 60%;
+  align-self: center;
+  background-image: linear-gradient(90deg, basics.$green, basics.$blue);
+  cursor: pointer;
+  border: none;
+
+  &:hover {
+    transform: scaleX(1.06);
+  }
+}
+
+.errorMessage {
+  color: basics.$red-purple;
+  font-size: 10px;
+}
