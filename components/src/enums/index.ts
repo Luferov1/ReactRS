@@ -48,3 +48,14 @@ export enum InputTypes {
   Radio = 'radio',
   Range = 'range',
 }
+
+export enum InputNames {
+  NameInput = 'nameInput',
+  DateInput = 'dateInput',
+  FileInput = 'fileInput',
+  SelectInput = 'selectInput',
+  PositionInput = 'positionInput',
+  OwnershipInput = 'ownershipInput',
+  PriceInput = 'priceInput',
+  Checkbox = 'checkbox',
+}
