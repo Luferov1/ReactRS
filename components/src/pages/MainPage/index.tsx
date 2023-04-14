@@ -1,73 +1,47 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import SearchBar from '../../components/SearchBar';
 import styles from './style.module.scss';
-import { fetchAllPlayers, filterPlayersArr } from '../../functions';
-import { ModalInitialState, Scorers } from '../../interfaces';
+import { filterPlayersArr } from '../../functions';
 import SmallPlayerCard from '../../components/SmallPlayerCard';
 import LoadingIndicator from '../../components/LoadingIndicator';
-import { TeamNames } from '../../enums';
+import { InputTypes, TeamNames } from '../../enums';
 import ModalWindowContainer from '../../components/ModalWindowContainer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { mainPageSlice } from '../../store/reducers/MainPageSlice';
+import playersAPI from '../../services';
+import { ISearchBar } from '../../interfaces';
 
 const MainPage = () => {
-  const [searchValue, setSearchValue] = useState('');
-  const [filteredPlayers, setFilteredPlayers] = useState<Scorers[]>([]);
-  const searchValueRef = useRef(searchValue);
-  const [isServerError, setServerError] = useState(false);
-  const [isListLoading, setListLoading] = useState(true);
-  const [modalInitState, setModalInitState] =
-    useState<ModalInitialState | null>(null);
+  const dispatch = useAppDispatch();
+  const { searchValue, isModalOpened } = useAppSelector(
+    (state) => state.mainPageReducer
+  );
+  const {
+    data: players,
+    error,
+    isLoading,
+  } = playersAPI.useFetchPlayersQuery(1000);
 
-  useEffect(() => {
-    searchValueRef.current = searchValue;
-  }, [searchValue]);
+  const { setSearchValue, setModalInitState, setIsModalOpened } =
+    mainPageSlice.actions;
+  const { register, handleSubmit, setValue } = useForm<ISearchBar>();
+  const searchBar = register('searchBar');
 
-  useEffect(() => {
-    const value = localStorage.getItem('value');
-    if (value) {
-      setSearchValue(value);
-      fetchAllPlayers(setServerError, setListLoading).then((players) => {
-        const newPlayers = filterPlayersArr(value, players);
-        setFilteredPlayers(newPlayers);
-      });
-    } else {
-      fetchAllPlayers(setServerError, setListLoading).then((players) => {
-        setFilteredPlayers(players);
-      });
-    }
-    return () => {
-      localStorage.setItem('value', searchValueRef.current);
-    };
-  }, []);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const targetValue = event.target.value;
-    setSearchValue(targetValue);
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const allPlayers = await fetchAllPlayers(
-      setServerError,
-      setListLoading,
-      1000
-    );
-    setFilteredPlayers(filterPlayersArr(searchValue, allPlayers));
+  const onSubmit: SubmitHandler<ISearchBar> = (data) => {
+    dispatch(setSearchValue(data.searchBar));
   };
 
   const openModal = (id: number, team: TeamNames, numberOfGoals: number) => {
-    setModalInitState({ team, id, numberOfGoals });
+    dispatch(setModalInitState({ team, id, numberOfGoals }));
+    dispatch(setIsModalOpened(true));
   };
+
+  useEffect(() => setValue('searchBar', searchValue), []);
 
   return (
     <main className={styles.main}>
-      {modalInitState ? (
-        <ModalWindowContainer
-          setModalInitState={setModalInitState}
-          team={modalInitState.team}
-          id={modalInitState.id}
-          numberOfGoals={modalInitState.numberOfGoals}
-        />
-      ) : null}
+      {isModalOpened && <ModalWindowContainer />}
       <h1 className={styles.header}>Best EPL goal scorers</h1>
       <h2 className={styles.subHeader}>
         This is the best 100 EPL goal scorers. Using search you can find any EPL
@@ -75,40 +49,39 @@ const MainPage = () => {
         <br />
         Click on a player to see more info
       </h2>
-      <SearchBar
-        value={searchValue}
-        onChange={handleChange}
-        onSubmit={handleSubmit}
-      />
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.searchBar}>
+        <SearchBar
+          text="Search"
+          type={InputTypes.Text}
+          name={searchBar.name}
+          onChange={searchBar.onChange}
+          onBlur={searchBar.onBlur}
+          ref={searchBar.ref}
+        />
+      </form>
       <div className={styles.playersContainer} role="article">
-        {(() => {
-          if (isListLoading) {
-            return <LoadingIndicator />;
-          }
-          if (isServerError) {
-            return (
-              <div className={styles.serverError}>
-                Server error. You have exceeded the allowed number of requests
-                per minute. Please wait and try again
-              </div>
-            );
-          }
-          if (filteredPlayers.length === 0) {
-            return <div className={styles.serverError}>Zero players found</div>;
-          }
-          return filteredPlayers.map(
-            ({ player, numberOfGoals, team }, index) => (
-              <SmallPlayerCard
-                position={index + 1}
-                player={player}
-                team={team}
-                numberOfGoals={numberOfGoals}
-                key={player.id}
-                openModal={openModal}
-              />
-            )
-          );
-        })()}
+        {isLoading && <LoadingIndicator />}
+        {error && (
+          <div className={styles.serverError}>Server error. Try again</div>
+        )}
+        {players &&
+          filterPlayersArr(searchValue, players.scorers).map(
+            ({ player, numberOfGoals, team }, index) =>
+              index < 100 && (
+                <SmallPlayerCard
+                  position={index + 1}
+                  player={player}
+                  team={team}
+                  numberOfGoals={numberOfGoals}
+                  key={player.id}
+                  openModal={openModal}
+                />
+              )
+          )}
+        {players &&
+        filterPlayersArr(searchValue, players.scorers).length === 0 ? (
+          <div className={styles.serverError}>Zero players found</div>
+        ) : null}
       </div>
     </main>
   );
