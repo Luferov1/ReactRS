@@ -1,9 +1,5 @@
 import { ChangeHandler } from 'react-hook-form';
-import { InputTypes, TeamNames } from '../enums';
-
-export interface IFormProps {
-  text?: string;
-}
+import { InputTypes, Positions, TeamNames } from '../enums';
 
 export interface IValidInput {
   text: string;
@@ -29,6 +25,10 @@ export interface IPlayer {
     name: string;
   };
   numberOfGoals: number;
+}
+
+export interface ISearchBar {
+  searchBar: string;
 }
 
 export interface Scorers {
@@ -63,4 +63,25 @@ export interface ModalInitialState {
   id: number;
   team: TeamNames;
   numberOfGoals: number;
+}
+
+export interface IFormInputs {
+  nameInput: string;
+  dateInput: string;
+  fileInput: FileList;
+  selectInput: string;
+  positionInput: Positions | null;
+  ownershipInput: number;
+  priceInput: number;
+  checkbox: boolean;
+}
+
+export interface IPlayerCard {
+  name: string;
+  team: TeamNames;
+  birthDate: string;
+  price: number;
+  selected: number;
+  position: Positions;
+  img: string;
 }
