@@ -1,6 +1,5 @@
-import axios from 'axios';
-import React from 'react';
-import { PlayerInfo, Scorers, ScorersResponse } from '../interfaces';
+import { IFormInputs, IPlayerCard, Scorers } from '../interfaces';
+import { Positions, TeamNames } from '../enums';
 
 export const filterPlayersArr = (str: string, players: Scorers[]) => {
   return players.filter(({ player }) =>
@@ -8,35 +7,24 @@ export const filterPlayersArr = (str: string, players: Scorers[]) => {
   );
 };
 
-export const fetchAllPlayers = async (
-  setServerError: React.Dispatch<React.SetStateAction<boolean>>,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  limit = 100
-): Promise<Scorers[]> => {
-  setLoading(true);
-  try {
-    const response = await axios.get<ScorersResponse>(
-      `/api/competitions/PL/scorers?limit=${limit}`
-    );
-    setLoading(false);
-    return response.data.scorers;
-  } catch (error) {
-    setServerError(true);
-    setLoading(false);
-    return [];
-  }
-};
+let id = 0;
 
-export const fetchPlayerById = async (
-  id: number,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
-): Promise<PlayerInfo | null> => {
-  try {
-    const response = await axios.get(`/api/players/${id}`);
-    setLoading(false);
-    return response.data;
-  } catch (error) {
-    setLoading(false);
-    return null;
-  }
+export const generateUniqueId = (text: string) => {
+  const value = `${text}${id}`;
+  id += 1;
+  return value;
+};
+export const createNewPlayerCard = (data: IFormInputs): IPlayerCard => {
+  const keys = Object.keys(TeamNames);
+  const values = Object.values(TeamNames);
+  const index = keys.indexOf(data.selectInput);
+  return {
+    name: data.nameInput,
+    birthDate: data.dateInput.split('-').reverse().join('.'),
+    selected: data.ownershipInput,
+    img: URL.createObjectURL(data.fileInput[0]),
+    team: values[index],
+    position: data.positionInput as Positions,
+    price: data.priceInput,
+  };
 };
