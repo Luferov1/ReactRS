@@ -1,17 +1,7 @@
 import { Positions, TeamNames } from '../../enums';
+import { IPlayerCard } from '../../interfaces';
 
-export interface IPlayer {
-  name: string;
-  team: TeamNames;
-  birthDate: string;
-  price: number;
-  selected: number;
-  position: Positions;
-  img: string;
-  id: number;
-}
-
-const players: IPlayer[] = [
+const players: IPlayerCard[] = [
   {
     name: 'David Raya',
     team: TeamNames.BRE,
@@ -20,7 +10,6 @@ const players: IPlayer[] = [
     selected: 15.6,
     position: Positions.GK,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p154561.png',
-    id: 1,
   },
   {
     name: 'Nick Pope',
@@ -30,7 +19,6 @@ const players: IPlayer[] = [
     selected: 20.9,
     position: Positions.GK,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p98747.png',
-    id: 2,
   },
   {
     name: 'Kieran Trippier',
@@ -40,7 +28,6 @@ const players: IPlayer[] = [
     selected: 64.9,
     position: Positions.DEF,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p77794.png',
-    id: 3,
   },
   {
     name: 'Oleksandr Zinchenko',
@@ -50,7 +37,6 @@ const players: IPlayer[] = [
     selected: 14.5,
     position: Positions.DEF,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p206325.png',
-    id: 4,
   },
   {
     name: 'Pervis Estupiñán',
@@ -60,7 +46,6 @@ const players: IPlayer[] = [
     selected: 11.7,
     position: Positions.DEF,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p204214.png',
-    id: 5,
   },
   {
     name: 'Pedro Porro',
@@ -70,7 +55,6 @@ const players: IPlayer[] = [
     selected: 0.3,
     position: Positions.DEF,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p441164.png',
-    id: 6,
   },
   {
     name: 'Lewis Dunk',
@@ -80,7 +64,6 @@ const players: IPlayer[] = [
     selected: 5.1,
     position: Positions.DEF,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p83299.png',
-    id: 7,
   },
   {
     name: 'Kaoru Mitoma',
@@ -90,7 +73,6 @@ const players: IPlayer[] = [
     selected: 22.4,
     position: Positions.MID,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p451340.png',
-    id: 8,
   },
   {
     name: 'Gabriel Martinelli',
@@ -100,7 +82,6 @@ const players: IPlayer[] = [
     selected: 37.5,
     position: Positions.MID,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p444145.png',
-    id: 9,
   },
   {
     name: 'James Maddison',
@@ -110,7 +91,6 @@ const players: IPlayer[] = [
     selected: 5.8,
     position: Positions.MID,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p172780.png',
-    id: 10,
   },
   {
     name: 'Mohamed Salah',
@@ -120,7 +100,6 @@ const players: IPlayer[] = [
     selected: 28.0,
     position: Positions.MID,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p118748.png',
-    id: 11,
   },
   {
     name: 'Marcus Rashford',
@@ -130,7 +109,6 @@ const players: IPlayer[] = [
     selected: 53.8,
     position: Positions.MID,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p176297.png',
-    id: 12,
   },
   {
     name: 'Erling Haaland',
@@ -140,7 +118,6 @@ const players: IPlayer[] = [
     selected: 82.3,
     position: Positions.FWD,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p223094.png',
-    id: 13,
   },
   {
     name: 'Ivan Toney',
@@ -150,7 +127,6 @@ const players: IPlayer[] = [
     selected: 39.6,
     position: Positions.FWD,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p144485.png',
-    id: 14,
   },
   {
     name: 'Ollie Watkins',
@@ -160,7 +136,6 @@ const players: IPlayer[] = [
     selected: 9.5,
     position: Positions.FWD,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p178301.png',
-    id: 15,
   },
   {
     name: 'Harry Kane',
@@ -170,7 +145,6 @@ const players: IPlayer[] = [
     selected: 38.5,
     position: Positions.FWD,
     img: 'https://resources.premierleague.com/premierleague/photos/players/250x250/p78830.png',
-    id: 16,
   },
 ];
 
