@@ -1,7 +1,7 @@
 import React from 'react';
-import { IPlayer } from '../../constants/playersInfo';
 import styles from './style.module.scss';
 import HeaderNText from '../HeaderNText';
+import { IPlayerCard } from '../../interfaces';
 
 const PlayerCard = ({
   team,
@@ -11,7 +11,7 @@ const PlayerCard = ({
   name,
   position,
   img,
-}: IPlayer) => (
+}: IPlayerCard) => (
   <div className={styles.container}>
     <div className={styles.topPart}>
       <img src={img} alt={name} />
