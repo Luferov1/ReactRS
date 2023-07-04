@@ -8,10 +8,11 @@ const playersAPI = createApi({
   }),
   endpoints: (build) => ({
     fetchPlayers: build.query<ScorersResponse, number>({
-      query: (limit = 100) => ({
+      query: (limit = 100, season = 2022) => ({
         url: '/competitions/PL/scorers',
         params: {
           limit,
+          season,
         },
       }),
     }),
